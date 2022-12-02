@@ -19,13 +19,25 @@ public class ExpeditionTests
     [Fact]
     public async Task GivenInputTextFile_WhenGetMaxCalorieCount_ThenShouldReturnCorrectAmount()
     {
-        var expectedCaloryCount = 24000;
+        var expectedCalorieCount = 24000;
         var input = await GetInputForDay01();
         var sut = new Expedition();
 
         sut.AddElvesByMeals(input);
 
-        sut.GetMaxCalorieCount().Should().Be(expectedCaloryCount);
+        sut.GetMaxCalorieCount().Should().Be(expectedCalorieCount);
+    }
+
+    [Fact]
+    public async Task GivenInputTextFile_WhenGetSumOfTopThreeCalorieCount_ThenShouldReturnCorrectAmount()
+    {
+        var expectedCalorieCount = 45000;
+        var input = await GetInputForDay01();
+        var sut = new Expedition();
+
+        sut.AddElvesByMeals(input);
+
+        sut.GetSumOfTopThreeCalorieCount().Should().Be(expectedCalorieCount);
     }
 
     private async Task<string> GetInputForDay01()

@@ -19,10 +19,16 @@ internal class Day01 : IDay
         expedition.AddElvesByMeals(input);
 
         ExecutePart01(expedition);
+        ExecutePart02(expedition);
     }
 
     private void ExecutePart01(Expedition expedition)
     {
         Console.WriteLine($"Solution Part 01: {expedition.GetMaxCalorieCount()}");
+    }
+
+    private void ExecutePart02(Expedition expedition)
+    {
+        Console.WriteLine($"Solution Part 02: {expedition.GetSumOfTopThreeCalorieCount()}");
     }
 }

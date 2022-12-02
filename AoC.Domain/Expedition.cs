@@ -21,4 +21,13 @@ public class Expedition
     {
         return Elves.Max(x => x.TotalCalories);
     }
+
+    public int GetSumOfTopThreeCalorieCount()
+    {
+        return Elves
+            .Select(x => x.TotalCalories)
+            .OrderByDescending(x => x)
+            .Take(3)
+            .Sum();
+    }
 }

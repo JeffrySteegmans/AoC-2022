@@ -10,6 +10,8 @@ internal static class DayFactory
         {
             case 1:
                 return new Day01();
+            case 2:
+                return new Day02();
             default:
                 throw new ArgumentOutOfRangeException();
         }

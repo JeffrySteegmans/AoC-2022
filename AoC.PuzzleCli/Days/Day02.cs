@@ -18,10 +18,16 @@ public class Day02 : IDay
         var rockPaperScissorsGame = new RockPaperScissorsGame(input);
 
         ExecutePart01(rockPaperScissorsGame);
+        ExecutePart02(rockPaperScissorsGame);
     }
 
     public void ExecutePart01(RockPaperScissorsGame rockPaperScissorsGame)
     {
         Console.WriteLine($"Solution Part 01: {rockPaperScissorsGame.CalculateTotalScore()}");
+    }
+
+    public void ExecutePart02(RockPaperScissorsGame rockPaperScissorsGame)
+    {
+        Console.WriteLine($"Solution Part 02: {rockPaperScissorsGame.CalculateTotalScore(Domain.Version.V2)}");
     }
 }

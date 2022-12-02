@@ -13,4 +13,16 @@ public class RockPaperScissorsGameTests
 
         totalScore.Should().Be(expectedTotalScore);
     }
+
+    [Fact]
+    public void GivenEncryptedStrategyGuide_WhenCalculateTotalScoreV2_ShouldCalculateCorrectScore()
+    {
+        var expectedTotalScore = 12;
+        var encryptedStrategyGuid = "A Y\r\nB X\r\nC Z";
+        var sut = new RockPaperScissorsGame(encryptedStrategyGuid);
+
+        var totalScore = sut.CalculateTotalScore(Version.V2);
+
+        totalScore.Should().Be(expectedTotalScore);
+    }
 }

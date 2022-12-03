@@ -2,9 +2,9 @@
 
 public class RuckSack
 {
-    public List<char> Compartiment1 { get; } = new();
+    public List<RuckSackItem> Compartiment1 { get; } = new();
 
-    public List<char> Compartiment2 { get; } = new();
+    public List<RuckSackItem> Compartiment2 { get; } = new();
 
     public RuckSack(string listOfItems)
     {
@@ -13,36 +13,21 @@ public class RuckSack
 
     public int CalculatePriorityOfMisplacedItems()
     {
-        var misplacedCharacter = FindMisplacedCharacter();
-        return CalculatePriorityOfCharacter(misplacedCharacter);
+        var misplacedRuckSackItem = FindMisplacedRuckSackItem();
+        return misplacedRuckSackItem.Priority;
     }
 
-    private char FindMisplacedCharacter()
+    private RuckSackItem FindMisplacedRuckSackItem()
     {
-        foreach (var character in Compartiment1)
+        foreach (var ruckSackItem in Compartiment1)
         {
-            if (Compartiment2.Contains(character))
+            if (Compartiment2.Any(x => x.Value == ruckSackItem.Value))
             {
-                return character;
+                return ruckSackItem;
             }
         }
 
         return default;
-    }
-
-    private int CalculatePriorityOfCharacter(char character)
-    {
-        if (character == default)
-        {
-            return 0;
-        }
-
-        return (int)character switch
-        {
-            > 96 and < 123 => character - 96,
-            > 64 and < 91 => character - 64 + 26,
-            _ => 0
-        };
     }
 
     private void ParseListOfItems(string listOfItems)
@@ -53,12 +38,12 @@ public class RuckSack
 
         foreach (var character in firstHalf)
         {
-            Compartiment1.Add(character);
+            Compartiment1.Add(new RuckSackItem(character));
         }
 
         foreach (var character in secondHalf)
         {
-            Compartiment2.Add(character);
+            Compartiment2.Add(new RuckSackItem(character));
         }
     }
 }

@@ -52,6 +52,30 @@ public class ExpeditionTests
         expedition.CalculateSumOfPriorityOfMisplacedItems().Should().Be(expectedPriority);
     }
 
+    [Theory]
+    [InlineData("vJrwpWtwJgWrhcsFMMfFFhFp\r\njqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\r\nPmmdzqPrVvPwwTWBwg", 'r')]
+    [InlineData("wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\r\nttgJtRGJQctTZtZT\r\nCrZsJsPPZsGzwwsLwLmpwMDw", 'Z')]
+    public void GivenListOfItems_WhenCreateElvesByListOfRuckSacks_ThenBadgeValueShouldBeCalculatedCorrectly(string ruckSackGroup, char expectedBadgeValue)
+    {
+        var sut = new Expedition();
+
+        sut.AddElvesByListOfRuckSacks(ruckSackGroup);
+
+        sut.Elves.Should().AllSatisfy(x => x.RuckSack.Badge.Value.Equals(expectedBadgeValue));
+    }
+
+    [Fact]
+    public async Task GivenListOfItems_WhenCreateElvesByListOfRuckSacks_ThenSumOfBadgePriorityShouldBeCalculatedCorrectly()
+    {
+        var expectedPriority = 70;
+        var input = await GetInputForDay03();
+
+        var expedition = new Expedition();
+        expedition.AddElvesByListOfRuckSacks(input);
+
+        expedition.CalculateSumOfBadgePriority().Should().Be(expectedPriority);
+    }
+
     private async Task<string> GetInputForDay01()
     {
         return await File.ReadAllTextAsync($"{_executionPath}/Input/Day01.txt");

@@ -60,4 +60,16 @@ public class ElfTests
 
         sut.RuckSack.Should().NotBeNull();
     }
+
+
+    [Fact]
+    public void GivenRuckSack_WhenAddingRuckSack_ThenRuckSackShouldNotBeNull()
+    {
+        var ruckSack = new RuckSack("vJrwpWtwJgWrhcsFMMfFFhFp");
+        var sut = new Elf();
+
+        sut.AddRuckSack(ruckSack);
+
+        sut.RuckSack.Should().NotBeNull();
+    }
 }

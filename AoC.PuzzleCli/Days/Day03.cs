@@ -26,6 +26,6 @@ internal class Day03 : IDay
 
     private static void ExecutePart02(Expedition expedition)
     {
-        Console.WriteLine($"Solution Part 02: ");
+        Console.WriteLine($"Solution Part 02: {expedition.CalculateSumOfBadgePriority()}");
     }
 }

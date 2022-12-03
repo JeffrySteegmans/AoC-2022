@@ -31,4 +31,5 @@ public class RuckSackTests
 
         ruckSack.CalculatePriorityOfMisplacedItems().Should().Be(expectedPriority);
     }
+
 }

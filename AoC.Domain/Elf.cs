@@ -25,4 +25,8 @@ public class Elf
     {
         RuckSack = new RuckSack(itemList);
     }
+    public void AddRuckSack(RuckSack ruckSack)
+    {
+        RuckSack = ruckSack;
+    }
 }

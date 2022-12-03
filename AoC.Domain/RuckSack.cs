@@ -6,6 +6,10 @@ public class RuckSack
 
     public List<RuckSackItem> Compartiment2 { get; } = new();
 
+    public List<RuckSackItem> AllItems { get; } = new();
+
+    public RuckSackBadge Badge { get; set; } = default!;
+
     public RuckSack(string listOfItems)
     {
         ParseListOfItems(listOfItems);
@@ -38,12 +42,16 @@ public class RuckSack
 
         foreach (var character in firstHalf)
         {
-            Compartiment1.Add(new RuckSackItem(character));
+            var ruckSackItem = new RuckSackItem(character);
+            Compartiment1.Add(ruckSackItem);
+            AllItems.Add(ruckSackItem);
         }
 
         foreach (var character in secondHalf)
         {
-            Compartiment2.Add(new RuckSackItem(character));
+            var ruckSackItem = new RuckSackItem(character);
+            Compartiment2.Add(ruckSackItem);
+            AllItems.Add(ruckSackItem);
         }
     }
 }

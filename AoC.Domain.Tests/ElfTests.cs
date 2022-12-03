@@ -49,4 +49,27 @@ public class ElfTests
 
         sut.TotalCalories.Should().Be(expectedTotalCalories);
     }
+
+    [Fact]
+    public void GivenItemList_WhenAddingRuckSack_ThenRuckSackShouldNotBeNull()
+    {
+        var itemList = "vJrwpWtwJgWrhcsFMMfFFhFp";
+        var sut = new Elf();
+
+        sut.AddRuckSack(itemList);
+
+        sut.RuckSack.Should().NotBeNull();
+    }
+
+
+    [Fact]
+    public void GivenRuckSack_WhenAddingRuckSack_ThenRuckSackShouldNotBeNull()
+    {
+        var ruckSack = new RuckSack("vJrwpWtwJgWrhcsFMMfFFhFp");
+        var sut = new Elf();
+
+        sut.AddRuckSack(ruckSack);
+
+        sut.RuckSack.Should().NotBeNull();
+    }
 }

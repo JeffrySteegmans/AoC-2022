@@ -1,7 +1,4 @@
-﻿using AoC.Domain;
-using System.Reflection;
-
-namespace AoC.PuzzleCli.Days;
+﻿namespace AoC.PuzzleCli.Days;
 
 public class Day02 : IDay
 {

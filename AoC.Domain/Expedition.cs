@@ -17,6 +17,19 @@ public class Expedition
         }
     }
 
+    public void AddElvesByListOfRuckSacks(string ruckSacks)
+    {
+        var itemLists = ruckSacks.Split(Environment.NewLine);
+
+        foreach (var itemList in itemLists)
+        {
+            var elf = new Elf();
+            elf.AddRuckSack(itemList);
+
+            Elves.Add(elf);
+        }
+    }
+
     public int GetMaxCalorieCount()
     {
         return Elves.Max(x => x.TotalCalories);
@@ -28,6 +41,13 @@ public class Expedition
             .Select(x => x.TotalCalories)
             .OrderByDescending(x => x)
             .Take(3)
+            .Sum();
+    }
+
+    public int CalculateSumOfPriorityOfMisplacedItems()
+    {
+        return Elves
+            .Select(x => x.RuckSack.CalculatePriorityOfMisplacedItems())
             .Sum();
     }
 }

@@ -40,8 +40,25 @@ public class ExpeditionTests
         sut.GetSumOfTopThreeCalorieCount().Should().Be(expectedCalorieCount);
     }
 
+    [Fact]
+    public async Task GivenListOfRuckSacks_WhenCalculateSumOfPriorityOfMisplacedItems_ThenPriorityShouldBeCalculatedCorrectly()
+    {
+        var expectedPriority = 157;
+        var input = await GetInputForDay03();
+
+        var expedition = new Expedition();
+        expedition.AddElvesByListOfRuckSacks(input);
+
+        expedition.CalculateSumOfPriorityOfMisplacedItems().Should().Be(expectedPriority);
+    }
+
     private async Task<string> GetInputForDay01()
     {
         return await File.ReadAllTextAsync($"{_executionPath}/Input/Day01.txt");
+    }
+
+    private async Task<string> GetInputForDay03()
+    {
+        return await File.ReadAllTextAsync($"{_executionPath}/Input/Day03.txt");
     }
 }

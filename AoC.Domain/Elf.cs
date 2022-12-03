@@ -3,6 +3,9 @@
 public class Elf
 {
     public List<Meal> Meals { get; } = new();
+
+    public RuckSack RuckSack { get; set; } = default!;
+
     public int TotalCalories { get; private set; } = 0;
 
     public void AddMeals(string meals)
@@ -16,5 +19,10 @@ public class Elf
             TotalCalories += meal.calories;
             Meals.Add(meal);
         }
+    }
+
+    public void AddRuckSack(string itemList)
+    {
+        RuckSack = new RuckSack(itemList);
     }
 }

@@ -49,4 +49,15 @@ public class ElfTests
 
         sut.TotalCalories.Should().Be(expectedTotalCalories);
     }
+
+    [Fact]
+    public void GivenItemList_WhenAddingRuckSack_ThenRuckSackShouldNotBeNull()
+    {
+        var itemList = "vJrwpWtwJgWrhcsFMMfFFhFp";
+        var sut = new Elf();
+
+        sut.AddRuckSack(itemList);
+
+        sut.RuckSack.Should().NotBeNull();
+    }
 }

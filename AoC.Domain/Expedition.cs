@@ -2,6 +2,8 @@
 
 public class Expedition
 {
+    public int NumberOfFullyContainingAssignments { get; private set; } = 0;
+
     public List<Elf> Elves { get; private set; } = new();
 
     public void AddElvesByMeals(string meals)
@@ -37,6 +39,34 @@ public class Expedition
                 Elves.Add(elf);
             }
         }
+    }
+
+    public void AddElvesBySectionAssignmentPairs(string assignment)
+    {
+        var assignmentPairs = assignment.Split(Environment.NewLine);
+        foreach (var assignmentPair in assignmentPairs)
+        {
+            var assignments = assignmentPair.Split(',');
+
+            var elves = assignments.Select(x =>
+            {
+                var elf = new Elf();
+                elf.AddCampSection(x);
+                return elf;
+            }).ToList();
+
+            NumberOfFullyContainingAssignments += IsFullyContainingAssignment(elves) ? 1 : 0;
+
+            Elves.AddRange(elves);
+        }
+    }
+
+    private bool IsFullyContainingAssignment(List<Elf> elves)
+    {
+        var sectionIdsElf1 = elves.First().CampSections.Select(x => x.ID).ToList();
+        var sectionIdsElf2 = elves.Last().CampSections.Select(x => x.ID).ToList();
+
+        return sectionIdsElf1.All(x => sectionIdsElf2.Contains(x)) || sectionIdsElf2.All(x => sectionIdsElf1.Contains(x));
     }
 
     private static void CalculateBadgeValue(List<RuckSack> ruckSacks)
@@ -95,10 +125,5 @@ public class Expedition
         return ruckSackGroups
             .SelectMany(x => x.Select(y => y.Badge.Priority).Distinct())
             .Sum();
-
-        //return Elves
-        //    .Select(x => x.RuckSack.Badge.Priority)
-        //    .Distinct()
-        //    .Sum();
     }
 }

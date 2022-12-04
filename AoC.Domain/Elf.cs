@@ -6,6 +6,8 @@ public class Elf
 
     public RuckSack RuckSack { get; set; } = default!;
 
+    public List<CampSection> CampSections { get; set; } = new();
+
     public int TotalCalories { get; private set; } = 0;
 
     public void AddMeals(string meals)
@@ -25,8 +27,18 @@ public class Elf
     {
         RuckSack = new RuckSack(itemList);
     }
+
     public void AddRuckSack(RuckSack ruckSack)
     {
         RuckSack = ruckSack;
+    }
+
+    public void AddCampSection(string assignment)
+    {
+        var sectionBoundary = assignment.Split('-').Select(x => int.Parse(x));
+
+        CampSections = Enumerable.Range(sectionBoundary.First(), sectionBoundary.Last() - sectionBoundary.First() + 1)
+            .Select(x => new CampSection(x))
+            .ToList();
     }
 }

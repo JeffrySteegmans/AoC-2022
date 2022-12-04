@@ -61,7 +61,6 @@ public class ElfTests
         sut.RuckSack.Should().NotBeNull();
     }
 
-
     [Fact]
     public void GivenRuckSack_WhenAddingRuckSack_ThenRuckSackShouldNotBeNull()
     {
@@ -71,5 +70,30 @@ public class ElfTests
         sut.AddRuckSack(ruckSack);
 
         sut.RuckSack.Should().NotBeNull();
+    }
+
+    [Theory]
+    [InlineData("2-4", 3)]
+    public void GivenSectionAssignment_WhenAddCampSections_ThenCorrectNumberOfSectionsShouldBeAdded(string assignment, int numberOfSections)
+    {
+        var sut = new Elf();
+
+        sut.AddCampSection(assignment);
+
+        sut.CampSections.Count.Should().Be(numberOfSections);
+    }
+
+    [Theory]
+    [InlineData("2-4", new int[] { 2, 3, 4 })]
+    public void GivenSectionAssignment_WhenAddCampSections_ThenCorrectCampSectionIdsShouldBeAdded(string assignment, int[] sectionIds)
+    {
+        var sut = new Elf();
+
+        sut.AddCampSection(assignment);
+
+        foreach (var id in sectionIds)
+        {
+            sut.CampSections.Should().ContainSingle(x => x.ID.Equals(id));
+        }
     }
 }

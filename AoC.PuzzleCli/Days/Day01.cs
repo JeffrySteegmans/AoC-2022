@@ -1,34 +1,19 @@
-﻿using AoC.Domain;
-using System.Reflection;
+﻿namespace AoC.PuzzleCli.Days;
 
-namespace AoC.PuzzleCli.Days;
-
-internal class Day01 : IDay
+internal class Day01 : Day
 {
-    private readonly string _executionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-
-    public async Task Execute()
+    public Day01() : base("01")
     {
-        Console.ForegroundColor = ConsoleColor.DarkCyan;
-        Console.WriteLine($"Executing day 1{Environment.NewLine}");
-        Console.ForegroundColor = ConsoleColor.White;
+    }
 
-        var input = await File.ReadAllTextAsync($@"{_executionPath}\Input\Day01.txt");
-
+    public override CalculationResults CalculateResults()
+    {
         var expedition = new Expedition();
-        expedition.AddElvesByMeals(input);
+        expedition.AddElvesByMeals(_input);
 
-        ExecutePart01(expedition);
-        ExecutePart02(expedition);
-    }
-
-    private void ExecutePart01(Expedition expedition)
-    {
-        Console.WriteLine($"Solution Part 01: {expedition.GetMaxCalorieCount()}");
-    }
-
-    private void ExecutePart02(Expedition expedition)
-    {
-        Console.WriteLine($"Solution Part 02: {expedition.GetSumOfTopThreeCalorieCount()}");
+        return new CalculationResults(
+            expedition.GetMaxCalorieCount().ToString(),
+            expedition.GetSumOfTopThreeCalorieCount().ToString()
+        );
     }
 }

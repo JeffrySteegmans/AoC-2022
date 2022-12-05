@@ -41,7 +41,7 @@ public class ShipTests
     }
 
     [Fact]
-    public void GivenShipsStartingStackList_WhenRearrangeStacks_ThenShouldGenerateCorrectStackList()
+    public void GivenCraneVersionV9000_WhenRearrangeStacks_ThenShouldGenerateCorrectStackList()
     {
         var startingStackList = "    [D]    \r\n[N] [C]    \r\n[Z] [M] [P]\r\n 1   2   3 ";
         var rearrangmentProcedure = "move 1 from 2 to 1\r\nmove 3 from 1 to 3\r\nmove 2 from 2 to 1\r\nmove 1 from 1 to 2";
@@ -50,13 +50,13 @@ public class ShipTests
 
         var sut = new Ship(startingStackList);
 
-        sut.RearrangeCrates(rearrangmentProcedure);
+        sut.RearrangeCrates(rearrangmentProcedure, CraneVersion.V9000);
 
         sut.Stacks.Should().BeEquivalentTo(expectedStacks);
     }
 
     [Fact]
-    public void GivenShipsRearrangedStackList_WhenGetTopCrates_ThenShouldReturnCorrectListOfCrates()
+    public void GivenCraneVersionV9000_WhenGetTopCrates_ThenShouldReturnCorrectListOfCrates()
     {
         var expectedTopCrates = new List<Crate>
         {
@@ -68,7 +68,42 @@ public class ShipTests
         var rearrangmentProcedure = "move 1 from 2 to 1\r\nmove 3 from 1 to 3\r\nmove 2 from 2 to 1\r\nmove 1 from 1 to 2";
 
         var sut = new Ship(startingStackList);
-        sut.RearrangeCrates(rearrangmentProcedure);
+        sut.RearrangeCrates(rearrangmentProcedure, CraneVersion.V9000);
+
+        var topCrates = sut.GetTopCrates();
+
+        topCrates.Should().BeEquivalentTo(expectedTopCrates);
+    }
+
+    [Fact]
+    public void GivenCraneVersionV9001_WhenRearrangeStacks_ThenShouldGenerateCorrectStackList()
+    {
+        var startingStackList = "    [D]    \r\n[N] [C]    \r\n[Z] [M] [P]\r\n 1   2   3 ";
+        var rearrangmentProcedure = "move 1 from 2 to 1\r\nmove 3 from 1 to 3\r\nmove 2 from 2 to 1\r\nmove 1 from 1 to 2";
+
+        var expectedStacks = StackBuilder.CreateStep4StacksV9001();
+
+        var sut = new Ship(startingStackList);
+
+        sut.RearrangeCrates(rearrangmentProcedure, CraneVersion.V9001);
+
+        sut.Stacks.Should().BeEquivalentTo(expectedStacks);
+    }
+
+    [Fact]
+    public void GivenCraneVersionV9001_WhenGetTopCrates_ThenShouldReturnCorrectListOfCrates()
+    {
+        var expectedTopCrates = new List<Crate>
+        {
+            new Crate('M'),
+            new Crate('C'),
+            new Crate('D'),
+        };
+        var startingStackList = "    [D]    \r\n[N] [C]    \r\n[Z] [M] [P]\r\n 1   2   3 ";
+        var rearrangmentProcedure = "move 1 from 2 to 1\r\nmove 3 from 1 to 3\r\nmove 2 from 2 to 1\r\nmove 1 from 1 to 2";
+
+        var sut = new Ship(startingStackList);
+        sut.RearrangeCrates(rearrangmentProcedure, CraneVersion.V9001);
 
         var topCrates = sut.GetTopCrates();
 

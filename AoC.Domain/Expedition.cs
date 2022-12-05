@@ -73,7 +73,17 @@ public class Expedition
 
         Ship = new Ship(startingStack);
 
-        Ship.RearrangeCrates(rearrangmentProcedure);
+        Ship.RearrangeCrates(rearrangmentProcedure, CraneVersion.V9000);
+    }
+
+    public void AddShipByStartingStacksAndRearrangmentProcedureV9001(string startingStacksAndRearrangmentProcedure)
+    {
+        var startingStack = startingStacksAndRearrangmentProcedure.Split($"{Environment.NewLine}{Environment.NewLine}").First();
+        var rearrangmentProcedure = startingStacksAndRearrangmentProcedure.Split($"{Environment.NewLine}{Environment.NewLine}").Last();
+
+        Ship = new Ship(startingStack);
+
+        Ship.RearrangeCrates(rearrangmentProcedure, CraneVersion.V9001);
     }
 
     private bool IsFullyContainingAssignment(List<Elf> elves)
@@ -148,5 +158,10 @@ public class Expedition
         return ruckSackGroups
             .SelectMany(x => x.Select(y => y.Badge.Priority).Distinct())
             .Sum();
+    }
+
+    public string GetTopCrates()
+    {
+        return string.Join("", Ship.GetTopCrates().Select(x => x.Marking));
     }
 }

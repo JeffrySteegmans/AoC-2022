@@ -1,5 +1,4 @@
 ﻿using AoC.Domain.Tests.Builders;
-using System.Collections;
 
 namespace AoC.Domain.Tests.Data;
 

@@ -53,11 +53,11 @@ public class Ship
 
 	}
 
-	public void RearrangeCrates(string rearrangementProcedure)
+	public void RearrangeCrates(string rearrangementProcedure, CraneVersion craneVersion)
 	{
 		foreach (var procedure in rearrangementProcedure.Split(Environment.NewLine))
 		{
-			Crane.RearrangeStacks(Stacks, procedure);
+			Crane.RearrangeStacks(Stacks, procedure, craneVersion);
 		}
 	}
 

@@ -12,8 +12,14 @@ public class Day05 : Day
 
         expedition.AddShipByStartingStacksAndRearrangmentProcedure(_input);
 
-        var resultPart1 = string.Join("", expedition.Ship.GetTopCrates().Select(x => x.Marking));
+        var resultPart1 = expedition.GetTopCrates();
 
-        return new CalculationResults(resultPart1, "");
+        expedition = new Expedition();
+
+        expedition.AddShipByStartingStacksAndRearrangmentProcedureV9001(_input);
+
+        var resultPart2 = expedition.GetTopCrates();
+
+        return new CalculationResults(resultPart1, resultPart2);
     }
 }

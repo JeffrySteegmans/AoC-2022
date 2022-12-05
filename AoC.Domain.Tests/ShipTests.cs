@@ -1,4 +1,5 @@
-﻿using AoC.Domain.Tests.Builders;
+﻿using AoC.Domain.Crane;
+using AoC.Domain.Tests.Builders;
 using FluentAssertions.Execution;
 
 namespace AoC.Domain.Tests;
@@ -48,9 +49,9 @@ public class ShipTests
 
         var expectedStacks = StackBuilder.CreateStep4Stacks();
 
-        var sut = new Ship(startingStackList);
+        var sut = new Ship(startingStackList, CraneVersion.V9000);
 
-        sut.RearrangeCrates(rearrangmentProcedure, CraneVersion.V9000);
+        sut.RearrangeCrates(rearrangmentProcedure);
 
         sut.Stacks.Should().BeEquivalentTo(expectedStacks);
     }
@@ -67,8 +68,8 @@ public class ShipTests
         var startingStackList = "    [D]    \r\n[N] [C]    \r\n[Z] [M] [P]\r\n 1   2   3 ";
         var rearrangmentProcedure = "move 1 from 2 to 1\r\nmove 3 from 1 to 3\r\nmove 2 from 2 to 1\r\nmove 1 from 1 to 2";
 
-        var sut = new Ship(startingStackList);
-        sut.RearrangeCrates(rearrangmentProcedure, CraneVersion.V9000);
+        var sut = new Ship(startingStackList, CraneVersion.V9000);
+        sut.RearrangeCrates(rearrangmentProcedure);
 
         var topCrates = sut.GetTopCrates();
 
@@ -83,9 +84,9 @@ public class ShipTests
 
         var expectedStacks = StackBuilder.CreateStep4StacksV9001();
 
-        var sut = new Ship(startingStackList);
+        var sut = new Ship(startingStackList, CraneVersion.V9001);
 
-        sut.RearrangeCrates(rearrangmentProcedure, CraneVersion.V9001);
+        sut.RearrangeCrates(rearrangmentProcedure);
 
         sut.Stacks.Should().BeEquivalentTo(expectedStacks);
     }
@@ -102,8 +103,8 @@ public class ShipTests
         var startingStackList = "    [D]    \r\n[N] [C]    \r\n[Z] [M] [P]\r\n 1   2   3 ";
         var rearrangmentProcedure = "move 1 from 2 to 1\r\nmove 3 from 1 to 3\r\nmove 2 from 2 to 1\r\nmove 1 from 1 to 2";
 
-        var sut = new Ship(startingStackList);
-        sut.RearrangeCrates(rearrangmentProcedure, CraneVersion.V9001);
+        var sut = new Ship(startingStackList, CraneVersion.V9001);
+        sut.RearrangeCrates(rearrangmentProcedure);
 
         var topCrates = sut.GetTopCrates();
 

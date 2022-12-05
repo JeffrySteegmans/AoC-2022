@@ -1,4 +1,6 @@
-﻿namespace AoC.Domain;
+﻿using AoC.Domain.Crane;
+
+namespace AoC.Domain;
 
 public class Expedition
 {
@@ -66,24 +68,14 @@ public class Expedition
         }
     }
 
-    public void AddShipByStartingStacksAndRearrangmentProcedure(string startingStacksAndRearrangmentProcedure)
+    public void AddShipByStartingStacksAndRearrangmentProcedure(string startingStacksAndRearrangmentProcedure, CraneVersion craneVersion)
     {
         var startingStack = startingStacksAndRearrangmentProcedure.Split($"{Environment.NewLine}{Environment.NewLine}").First();
         var rearrangmentProcedure = startingStacksAndRearrangmentProcedure.Split($"{Environment.NewLine}{Environment.NewLine}").Last();
 
-        Ship = new Ship(startingStack);
+        Ship = new Ship(startingStack, craneVersion);
 
-        Ship.RearrangeCrates(rearrangmentProcedure, CraneVersion.V9000);
-    }
-
-    public void AddShipByStartingStacksAndRearrangmentProcedureV9001(string startingStacksAndRearrangmentProcedure)
-    {
-        var startingStack = startingStacksAndRearrangmentProcedure.Split($"{Environment.NewLine}{Environment.NewLine}").First();
-        var rearrangmentProcedure = startingStacksAndRearrangmentProcedure.Split($"{Environment.NewLine}{Environment.NewLine}").Last();
-
-        Ship = new Ship(startingStack);
-
-        Ship.RearrangeCrates(rearrangmentProcedure, CraneVersion.V9001);
+        Ship.RearrangeCrates(rearrangmentProcedure);
     }
 
     private bool IsFullyContainingAssignment(List<Elf> elves)

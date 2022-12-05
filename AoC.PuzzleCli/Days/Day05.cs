@@ -1,4 +1,6 @@
-﻿namespace AoC.PuzzleCli.Days;
+﻿using AoC.Domain.Crane;
+
+namespace AoC.PuzzleCli.Days;
 
 public class Day05 : Day
 {
@@ -9,14 +11,12 @@ public class Day05 : Day
     public override CalculationResults CalculateResults()
     {
         var expedition = new Expedition();
-
-        expedition.AddShipByStartingStacksAndRearrangmentProcedure(_input);
+        expedition.AddShipByStartingStacksAndRearrangmentProcedure(_input, CraneVersion.V9000);
 
         var resultPart1 = expedition.GetTopCrates();
 
         expedition = new Expedition();
-
-        expedition.AddShipByStartingStacksAndRearrangmentProcedureV9001(_input);
+        expedition.AddShipByStartingStacksAndRearrangmentProcedure(_input, CraneVersion.V9001);
 
         var resultPart2 = expedition.GetTopCrates();
 

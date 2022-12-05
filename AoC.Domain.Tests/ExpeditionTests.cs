@@ -1,4 +1,5 @@
-﻿using AoC.Domain.Tests.Builders;
+﻿using AoC.Domain.Crane;
+using AoC.Domain.Tests.Builders;
 
 namespace AoC.Domain.Tests;
 
@@ -136,15 +137,22 @@ public class ExpeditionTests
         expedition.NumberOfOverlappingPairs.Should().Be(expectedNumberOfOverlappingPairs);
     }
 
-    [Fact]
-    public async Task GivenStartingStacksAndRearrangmentProcedure_WhenAddShipByStartingStacksAndRearrangmentProcedure_ThenStacksOnShipShouldBeCorrectGenerated()
+    [Theory]
+    [InlineData(CraneVersion.V9000)]
+    [InlineData(CraneVersion.V9001)]
+    public async Task GivenStartingStacksAndRearrangmentProcedure_WhenAddShipByStartingStacksAndRearrangmentProcedure_ThenStacksOnShipShouldBeCorrectGenerated(CraneVersion craneVersion)
     {
-        var expectedStacks = StackBuilder.CreateStep4Stacks();
+        var expectedStacks = craneVersion switch
+        {
+            CraneVersion.V9000 => StackBuilder.CreateStep4Stacks(),
+            CraneVersion.V9001 => StackBuilder.CreateStep4StacksV9001(),
+            _ => throw new ArgumentException("Wrong version")
+        };
         var input = await GetInputForDay05();
 
         var expedition = new Expedition();
 
-        expedition.AddShipByStartingStacksAndRearrangmentProcedure(input);
+        expedition.AddShipByStartingStacksAndRearrangmentProcedure(input, craneVersion);
 
         expedition.Ship.Stacks.Should().BeEquivalentTo(expectedStacks);
     }

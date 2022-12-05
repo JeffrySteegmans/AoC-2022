@@ -8,6 +8,8 @@ public class Expedition
 
     public List<Elf> Elves { get; private set; } = new();
 
+    public Ship Ship { get; private set; } = default!;
+
     public void AddElvesByMeals(string meals)
     {
         var mealsList = meals.Split($"{Environment.NewLine}{Environment.NewLine}");
@@ -62,6 +64,16 @@ public class Expedition
 
             Elves.AddRange(elves);
         }
+    }
+
+    public void AddShipByStartingStacksAndRearrangmentProcedure(string startingStacksAndRearrangmentProcedure)
+    {
+        var startingStack = startingStacksAndRearrangmentProcedure.Split($"{Environment.NewLine}{Environment.NewLine}").First();
+        var rearrangmentProcedure = startingStacksAndRearrangmentProcedure.Split($"{Environment.NewLine}{Environment.NewLine}").Last();
+
+        Ship = new Ship(startingStack);
+
+        Ship.RearrangeCrates(rearrangmentProcedure);
     }
 
     private bool IsFullyContainingAssignment(List<Elf> elves)

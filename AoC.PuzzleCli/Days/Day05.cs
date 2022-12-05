@@ -8,6 +8,12 @@ public class Day05 : Day
 
     public override CalculationResults CalculateResults()
     {
-        return new CalculationResults("", "");
+        var expedition = new Expedition();
+
+        expedition.AddShipByStartingStacksAndRearrangmentProcedure(_input);
+
+        var resultPart1 = string.Join("", expedition.Ship.GetTopCrates().Select(x => x.Marking));
+
+        return new CalculationResults(resultPart1, "");
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace AoC.Domain.Tests;
+﻿using AoC.Domain.Tests.Builders;
+
+namespace AoC.Domain.Tests;
 
 public class ExpeditionTests
 {
@@ -121,7 +123,6 @@ public class ExpeditionTests
         sut.NumberOfOverlappingPairs.Should().Be(NumberOfOverlappingPairs);
     }
 
-
     [Fact]
     public async Task GivenListOfSectionAssignmentPairs_WhenAddElvesBySectionAssignmentPairs_ThenNumberOfOverlappingPairsShouldBeCalculatedCorrectly()
     {
@@ -133,6 +134,19 @@ public class ExpeditionTests
         expedition.AddElvesBySectionAssignmentPairs(input);
 
         expedition.NumberOfOverlappingPairs.Should().Be(expectedNumberOfOverlappingPairs);
+    }
+
+    [Fact]
+    public async Task GivenStartingStacksAndRearrangmentProcedure_WhenAddShipByStartingStacksAndRearrangmentProcedure_ThenStacksOnShipShouldBeCorrectGenerated()
+    {
+        var expectedStacks = StackBuilder.CreateStep4Stacks();
+        var input = await GetInputForDay05();
+
+        var expedition = new Expedition();
+
+        expedition.AddShipByStartingStacksAndRearrangmentProcedure(input);
+
+        expedition.Ship.Stacks.Should().BeEquivalentTo(expectedStacks);
     }
 
     private async Task<string> GetInputForDay01()
@@ -148,5 +162,10 @@ public class ExpeditionTests
     private async Task<string> GetInputForDay04()
     {
         return await File.ReadAllTextAsync($"{_executionPath}/Input/Day04.txt");
+    }
+
+    private async Task<string> GetInputForDay05()
+    {
+        return await File.ReadAllTextAsync($"{_executionPath}/Input/Day05.txt");
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace AoC.Domain;
+﻿using AoC.Domain.Crane;
+
+namespace AoC.Domain;
 
 public class Expedition
 {
@@ -7,6 +9,8 @@ public class Expedition
     public int NumberOfOverlappingPairs { get; set; } = 0;
 
     public List<Elf> Elves { get; private set; } = new();
+
+    public Ship Ship { get; private set; } = default!;
 
     public void AddElvesByMeals(string meals)
     {
@@ -62,6 +66,16 @@ public class Expedition
 
             Elves.AddRange(elves);
         }
+    }
+
+    public void AddShipByStartingStacksAndRearrangmentProcedure(string startingStacksAndRearrangmentProcedure, CraneVersion craneVersion)
+    {
+        var startingStack = startingStacksAndRearrangmentProcedure.Split($"{Environment.NewLine}{Environment.NewLine}").First();
+        var rearrangmentProcedure = startingStacksAndRearrangmentProcedure.Split($"{Environment.NewLine}{Environment.NewLine}").Last();
+
+        Ship = new Ship(startingStack, craneVersion);
+
+        Ship.RearrangeCrates(rearrangmentProcedure);
     }
 
     private bool IsFullyContainingAssignment(List<Elf> elves)
@@ -136,5 +150,10 @@ public class Expedition
         return ruckSackGroups
             .SelectMany(x => x.Select(y => y.Badge.Priority).Distinct())
             .Sum();
+    }
+
+    public string GetTopCrates()
+    {
+        return string.Join("", Ship.GetTopCrates().Select(x => x.Marking));
     }
 }

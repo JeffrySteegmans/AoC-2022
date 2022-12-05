@@ -1,4 +1,7 @@
-﻿namespace AoC.Domain.Tests;
+﻿using AoC.Domain.Crane;
+using AoC.Domain.Tests.Builders;
+
+namespace AoC.Domain.Tests;
 
 public class ExpeditionTests
 {
@@ -121,7 +124,6 @@ public class ExpeditionTests
         sut.NumberOfOverlappingPairs.Should().Be(NumberOfOverlappingPairs);
     }
 
-
     [Fact]
     public async Task GivenListOfSectionAssignmentPairs_WhenAddElvesBySectionAssignmentPairs_ThenNumberOfOverlappingPairsShouldBeCalculatedCorrectly()
     {
@@ -133,6 +135,26 @@ public class ExpeditionTests
         expedition.AddElvesBySectionAssignmentPairs(input);
 
         expedition.NumberOfOverlappingPairs.Should().Be(expectedNumberOfOverlappingPairs);
+    }
+
+    [Theory]
+    [InlineData(CraneVersion.V9000)]
+    [InlineData(CraneVersion.V9001)]
+    public async Task GivenStartingStacksAndRearrangmentProcedure_WhenAddShipByStartingStacksAndRearrangmentProcedure_ThenStacksOnShipShouldBeCorrectGenerated(CraneVersion craneVersion)
+    {
+        var expectedStacks = craneVersion switch
+        {
+            CraneVersion.V9000 => StackBuilder.CreateStep4Stacks(),
+            CraneVersion.V9001 => StackBuilder.CreateStep4StacksV9001(),
+            _ => throw new ArgumentException("Wrong version")
+        };
+        var input = await GetInputForDay05();
+
+        var expedition = new Expedition();
+
+        expedition.AddShipByStartingStacksAndRearrangmentProcedure(input, craneVersion);
+
+        expedition.Ship.Stacks.Should().BeEquivalentTo(expectedStacks);
     }
 
     private async Task<string> GetInputForDay01()
@@ -148,5 +170,10 @@ public class ExpeditionTests
     private async Task<string> GetInputForDay04()
     {
         return await File.ReadAllTextAsync($"{_executionPath}/Input/Day04.txt");
+    }
+
+    private async Task<string> GetInputForDay05()
+    {
+        return await File.ReadAllTextAsync($"{_executionPath}/Input/Day05.txt");
     }
 }

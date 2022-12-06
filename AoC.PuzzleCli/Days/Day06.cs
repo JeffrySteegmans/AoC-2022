@@ -11,8 +11,8 @@ public class Day06 : Day
         var communicationSystem = new CommunicationSystem(_input);
 
         var resultPart1 = communicationSystem.FindStartOfPacketMarkerIndex();
-        var resultPart2 = "";
+        var resultPart2 = communicationSystem.FindStartOfMessageMarkerIndex();
 
-        return new CalculationResults(resultPart1.ToString(), resultPart2);
+        return new CalculationResults(resultPart1.ToString(), resultPart2.ToString());
     }
 }

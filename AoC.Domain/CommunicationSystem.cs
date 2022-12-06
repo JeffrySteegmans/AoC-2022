@@ -11,20 +11,30 @@ public class CommunicationSystem
 
     public int FindStartOfPacketMarkerIndex()
     {
+        return FindStartMarker(4);
+    }
+
+    public int FindStartOfMessageMarkerIndex()
+    {
+        return FindStartMarker(14);
+    }
+
+    private int FindStartMarker(int numberOfDistinctCharacters)
+    {
         var startSequence = new Queue<char>();
 
         var position = 0;
         foreach (var character in _stream)
         {
             position++;
-            if (startSequence.Count == 4)
+            if (startSequence.Count == numberOfDistinctCharacters)
             {
                 startSequence.Dequeue();
             }
 
             startSequence.Enqueue(character);
 
-            var isDistinctSequence = startSequence.Distinct().Count() == 4;
+            var isDistinctSequence = startSequence.Distinct().Count() == numberOfDistinctCharacters;
             if (isDistinctSequence)
             {
                 break;

@@ -3,15 +3,13 @@ using AoC.Domain.Tests.Builders;
 
 namespace AoC.Domain.Tests;
 
-public class ExpeditionTests
+public class ExpeditionTests : Tests
 {
-    private readonly string _executionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-
     [Fact]
     public async Task GivenInputTextFile_WhenCreateElvesByMeals_ThenShouldHaveCreatedCorrectAmountOfElves()
     {
         var expectedElvesCount = 5;
-        var input = await GetInputForDay01();
+        var input = await GetInputForDay(1);
         var sut = new Expedition();
 
         sut.AddElvesByMeals(input);
@@ -23,7 +21,7 @@ public class ExpeditionTests
     public async Task GivenInputTextFile_WhenGetMaxCalorieCount_ThenShouldReturnCorrectAmount()
     {
         var expectedCalorieCount = 24000;
-        var input = await GetInputForDay01();
+        var input = await GetInputForDay(1);
         var sut = new Expedition();
 
         sut.AddElvesByMeals(input);
@@ -35,7 +33,7 @@ public class ExpeditionTests
     public async Task GivenInputTextFile_WhenGetSumOfTopThreeCalorieCount_ThenShouldReturnCorrectAmount()
     {
         var expectedCalorieCount = 45000;
-        var input = await GetInputForDay01();
+        var input = await GetInputForDay(1);
         var sut = new Expedition();
 
         sut.AddElvesByMeals(input);
@@ -47,7 +45,7 @@ public class ExpeditionTests
     public async Task GivenListOfRuckSacks_WhenCalculateSumOfPriorityOfMisplacedItems_ThenPriorityShouldBeCalculatedCorrectly()
     {
         var expectedPriority = 157;
-        var input = await GetInputForDay03();
+        var input = await GetInputForDay(3);
 
         var expedition = new Expedition();
         expedition.AddElvesByListOfRuckSacks(input);
@@ -71,7 +69,7 @@ public class ExpeditionTests
     public async Task GivenListOfItems_WhenCreateElvesByListOfRuckSacks_ThenSumOfBadgePriorityShouldBeCalculatedCorrectly()
     {
         var expectedPriority = 70;
-        var input = await GetInputForDay03();
+        var input = await GetInputForDay(3);
 
         var expedition = new Expedition();
         expedition.AddElvesByListOfRuckSacks(input);
@@ -99,7 +97,7 @@ public class ExpeditionTests
     public async Task GivenListOfSectionAssignmentPairs_WhenAddElvesBySectionAssignmentPairs_ThenCountOfFullyContainsShouldBeCalculatedCorrectly()
     {
         var expectedNumberOfFullyContainingAssignments = 2;
-        var input = await GetInputForDay04();
+        var input = await GetInputForDay(4);
 
         var expedition = new Expedition();
 
@@ -128,7 +126,7 @@ public class ExpeditionTests
     public async Task GivenListOfSectionAssignmentPairs_WhenAddElvesBySectionAssignmentPairs_ThenNumberOfOverlappingPairsShouldBeCalculatedCorrectly()
     {
         var expectedNumberOfOverlappingPairs = 4;
-        var input = await GetInputForDay04();
+        var input = await GetInputForDay(4);
 
         var expedition = new Expedition();
 
@@ -148,32 +146,12 @@ public class ExpeditionTests
             CraneVersion.V9001 => StackBuilder.CreateStep4StacksV9001(),
             _ => throw new ArgumentException("Wrong version")
         };
-        var input = await GetInputForDay05();
+        var input = await GetInputForDay(5);
 
         var expedition = new Expedition();
 
         expedition.AddShipByStartingStacksAndRearrangmentProcedure(input, craneVersion);
 
         expedition.Ship.Stacks.Should().BeEquivalentTo(expectedStacks);
-    }
-
-    private async Task<string> GetInputForDay01()
-    {
-        return await File.ReadAllTextAsync($"{_executionPath}/Input/Day01.txt");
-    }
-
-    private async Task<string> GetInputForDay03()
-    {
-        return await File.ReadAllTextAsync($"{_executionPath}/Input/Day03.txt");
-    }
-
-    private async Task<string> GetInputForDay04()
-    {
-        return await File.ReadAllTextAsync($"{_executionPath}/Input/Day04.txt");
-    }
-
-    private async Task<string> GetInputForDay05()
-    {
-        return await File.ReadAllTextAsync($"{_executionPath}/Input/Day05.txt");
     }
 }

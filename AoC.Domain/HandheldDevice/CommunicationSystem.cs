@@ -1,4 +1,4 @@
-﻿namespace AoC.Domain;
+﻿namespace AoC.Domain.HandheldDevice;
 
 public class CommunicationSystem
 {

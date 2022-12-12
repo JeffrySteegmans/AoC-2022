@@ -1,4 +1,6 @@
-﻿namespace AoC.Domain.Tests;
+﻿using AoC.Domain.HandheldDevice;
+
+namespace AoC.Domain.Tests.HandheldDevice;
 
 public class CommunicationSystemTests
 {

@@ -1,4 +1,6 @@
-﻿namespace AoC.PuzzleCli.Days;
+﻿using AoC.Domain.HandheldDevice;
+
+namespace AoC.PuzzleCli.Days;
 
 public class Day07 : Day
 {
@@ -8,6 +10,14 @@ public class Day07 : Day
 
     public override CalculationResults CalculateResults()
     {
-        return new CalculationResults("", "");
+        var maxSize = 100000;
+        var requiredSpace = 30000000;
+        var fileSystem = new FileSystem();
+        fileSystem.ApplyTerminalOutput(_input);
+
+        var resultPart1 = fileSystem.GetSumOfFoldersWithMaxSize(maxSize);
+        var resultPart2 = fileSystem.GetSizeOfSmallestDirectoryToDelete(requiredSpace);
+
+        return new CalculationResults(resultPart1.ToString(), resultPart2.ToString());
     }
 }

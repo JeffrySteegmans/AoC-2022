@@ -1,4 +1,6 @@
-﻿namespace AoC.PuzzleCli.Days;
+﻿using AoC.Domain.HandheldDevice;
+
+namespace AoC.PuzzleCli.Days;
 
 public class Day06 : Day
 {

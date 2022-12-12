@@ -8,6 +8,9 @@ public class Day16 : Day
 
     public override CalculationResults CalculateResults()
     {
-        return new CalculationResults("", "");
+        var resultPart1 = "";
+        var resultPart2 = "";
+
+        return new CalculationResults(resultPart1.ToString(), resultPart2.ToString());
     }
 }
